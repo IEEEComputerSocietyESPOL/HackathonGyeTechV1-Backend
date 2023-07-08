@@ -25,10 +25,10 @@ while continuar != "n":
     Tipo de contenido: Burlesco
     Cantidad de ideas: 1
     Idea: Puedes hacer un video sobre el tipo de mamá que no te gustaría tener.
-    Tema: """ + tema + "\nTipo de contenido: " + tipo_contenido + "\nCantidad de ideas: " + nIdeas + "\nIdea: "
+    Tema: """ + tema + "\nTipo de contenido: " + tipo_contenido + "\nCantidad de ideas: " + nIdeas + "\nIdea:"
     
     chatbot_response = generar_respuesta(default_promp)
-    print("Chatbot:", chatbot_response)
+    print("Ideas de Contenido:\n", chatbot_response)
 
     continuar = input("¿Continuar? s/n: ")
     if continuar.lower() == "n":
