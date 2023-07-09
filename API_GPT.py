@@ -1,43 +1,48 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+# Importar librerias
+from flask import Flask, jsonify, request
 import openai
 
-app = FastAPI()
-
-class IdeaRequest(BaseModel):
-    tema: str
-    tipo_contenido: str
-    n_ideas: int
-
-api_key = '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'
+# API KEY
+api_key = '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'
 openai.api_key = api_key
+
+# APP FLASK
+app = Flask(__name__)
+
+# BODY
+@app.route('/generar-respuesta', methods=['POST'])
+def generar_respuesta():
+    data = request.json
+    tema = data.get('tema')
+    tipo_contenido = data.get('tipo_contenido')
+    n_ideas = data.get('n_ideas')
+
+    default_prompt = """
+    Como community manager, tu tarea es brindar n ideas de contenido (videos)
+    a realizar a partir de un tema dado y el tipo de contenido que se desea realizar, donde n es el
+    número de ideas que se desean generar.
+    Ejemplo:
+    Tema: {}
+    Tipo de contenido: {}
+    Cantidad de ideas: {}
+    Idea:
+    """.format(tema, tipo_contenido, n_ideas)
+    
+    chatbot_response = generar_respuesta(default_prompt)
+    return jsonify({'ideas_de_contenido': chatbot_response.split("\n")})
 
 def generar_respuesta(prompt):
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
-        max_tokens=2000  # Ajusta este valor según tus necesidades
+        max_tokens=2000
     )
     generated_text = response.choices[0].text.strip()
     return generated_text
 
-@app.post("/ideas")
-def generar_ideas(request: IdeaRequest):
-    tema = request.tema
-    tipo_contenido = request.tipo_contenido
-    n_ideas = request.n_ideas
 
-    default_prompt = """Como community manager, tu tarea es brindar n ideas de contenido (videos)
-    a realizar a partir de un tema dado y el tipo de contenido que se desea realizar, donde n es el
-    número de ideas que se desean generar.
-    Ejemplo:
-    Tema: El día de la madre
-    Tipo de contenido: Burlesco
-    Cantidad de ideas: 1
-    Idea: Puedes hacer un video sobre el tipo de mamá que no te gustaría tener.
-    Tema: """ + tema + "\nTipo de contenido: " + tipo_contenido + "\nCantidad de ideas: " + str(n_ideas) + "\nIdea:"
-    
-    chatbot_response = generar_respuesta(default_prompt)
-    ideas = chatbot_response.split("\n")[1:]  # Obtener las ideas de contenido sin la primera línea
 
-    return {"ideas": ideas}
+
+# Ejecucion Flask
+if __name__ == '__main__':
+    app.run(debug=True, port=4000)
