@@ -1,10 +1,8 @@
-# HackathonGyeTechV1-Backend
-
 #Descripción de la Propuesta:
 Social Mentor es una API que emplea inteligencia artificial para generar ideas de contenido, sugerencias de
 edición de contenido y emular un planificador de horarios de publicación.
 
-#Generador de ideas:
+##Generador de ideas
 Utiliza un prompt que se completa con el tema del que se desea crear la idea, el tipo de contenido que se quiere
 desarrollar y la cantidad de ideas que se desea.
 Ejemplo de entrada:
@@ -14,7 +12,7 @@ Cantidad de ideas: 1
 Ejemplo de salida:
 Sugerencias: Video con curiosidades de la película Elementos y un breve análisis de la película
 
-#Consejero de contenidos
+##Consejero de contenidos
 Utiliza un prompt que se completa con la idea propuesta, el tipo de contenido que se quiere desarrollar y
 el formato del contenido (Imágenes o video) y detalla aspectos principales que debería tener dicha idea al
 momento de llevarla a cabo.
@@ -29,7 +27,7 @@ Duración estimada: 15 minutos
 Transiciones: puedes utilizar una transición de entrada para cada sección y una de salida al final del video
 Flujo de video: Cortos de las partes más importantes según lo que se está tratando
 
-#Planificador
+##Planificador
 Se aspira a que se obtengan los datos de las API's de las redes sociales para analizar los días y horarios en los que se obtuvo
 un mayor alcance en cada publicación y en base a eso se recomiendan los días y horas en las que es más recomendable publicar contenido.
 Por lo pronto, esto emula el accedo a datos ficticios mediante un diccionario de posts y ejecuta un prompt para decidir los días y horas.
